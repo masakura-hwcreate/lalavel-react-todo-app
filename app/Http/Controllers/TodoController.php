@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Todo;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Log;
 
 class TodoController extends Controller
 {
@@ -22,7 +23,8 @@ class TodoController extends Controller
      */
     public function index()
     {
-        $todos = Todo::select('id', 'user_id', 'deadline', 'content', 'is_finished')
+        $todos = Todo::select('id', 'user_id', 'content')
+            // $todos = Todo::select('id', 'user_id', 'deadline', 'content', 'is_finished')
             ->where('user_id', Auth::id())
             ->get();
 
@@ -43,7 +45,19 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'user_id' => 'required|exists:users,id', // user_idは存在するユーザーIDであることを確認
+            'content' => 'required|string|max:50', // contentは必須、文字列
+        ]);
+
+        dd($request->user_id, $request->content);
+        // 新しいTodoを作成
+        Todo::create([
+            'user_id' => $request->user_id,
+            'content' => $request->content,
+        ]);
+
+        return Inertia::render('Index', compact('todos'));
     }
 
     /**

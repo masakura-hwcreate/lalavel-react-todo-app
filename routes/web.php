@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/todos', [TodoController::class, 'index'])->name('todos');
+    Route::post('/todos', [TodoController::class, 'store'])->name('todos.store');
     Route::get('/todos/create', [TodoController::class, 'create'])->name('todos.create');
 });
 

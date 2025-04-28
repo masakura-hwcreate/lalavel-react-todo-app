@@ -17,9 +17,9 @@ return new class extends Migration
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->string('deadline');
+            // $table->string('deadline');
             $table->string('content');
-            $table->boolean('is_finished');
+            // $table->boolean('is_finished');
             $table->timestamps();
         });
     }
