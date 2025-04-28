@@ -25,7 +25,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/todos', [TodoController::class, 'index'])
-->middleware(['auth', 'verified'])->name('todos');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/todos', [TodoController::class, 'index'])->name('todos');
+    Route::get('/todos/create', [TodoController::class, 'create'])->name('todos.create');
+});
+
+// Route::get('/todos', [TodoController::class, 'index'])
+// ->middleware(['auth', 'verified'])->name('todos');
 
 require __DIR__.'/auth.php';

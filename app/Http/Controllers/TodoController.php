@@ -35,7 +35,7 @@ class TodoController extends Controller
      */
     public function create()
     {
-        return Inertia::render('create');
+        return Inertia::render('Create');
     }
 
     /**
