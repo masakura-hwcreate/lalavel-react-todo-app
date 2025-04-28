@@ -45,19 +45,21 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
+
         $request->validate([
             'user_id' => 'required|exists:users,id', // user_idは存在するユーザーIDであることを確認
             'content' => 'required|string|max:50', // contentは必須、文字列
         ]);
 
-        dd($request->user_id, $request->content);
+        // dd($request->user_id, $request->content);
         // 新しいTodoを作成
         Todo::create([
             'user_id' => $request->user_id,
             'content' => $request->content,
         ]);
 
-        return Inertia::render('Index', compact('todos'));
+        return Inertia::location(route('todos'));
     }
 
     /**

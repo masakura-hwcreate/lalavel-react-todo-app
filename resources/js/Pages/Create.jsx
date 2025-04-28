@@ -5,21 +5,23 @@ import { router } from '@inertiajs/react';
 function Create() {
 
     const[content, setContent] = useState({
-        user_id: "",
+        user_id: 1,
         content: "",
     });
 
     
     const handleSubmit = (e) => {
-        const userId = 1;
+        // const userId = 1;
         e.preventDefault();
 
-        const updateContent =  {
-            ...content,
-            user_id: userId, // ユーザーIDを追加
-        }
-        setContent(updateContent)
-        // router.post(route('todos.store'), content );
+        // const updateContent =  {
+        //     ...content,
+        //     user_id: userId, // ユーザーIDを追加
+        // }
+        // setContent(updateContent)
+        // console.log(updateContent);
+        // console.log(content);
+        router.post(route('todos.store'), content );
 
         router.post(route('todos.store'), content, {
             onFinish: () => {
