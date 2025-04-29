@@ -54,7 +54,6 @@ class TodoController extends Controller
             'content' => 'required|string|max:50', // contentは必須、文字列
         ]);
 
-        // dd($request->user_id, $request->content);
         // 新しいTodoを作成
         Todo::create([
             'user_id' => $request->user_id,
@@ -77,7 +76,9 @@ class TodoController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $todo = Todo::findOrFail($id);
+
+        return Inertia::render('Edit', compact('todo'));
     }
 
     /**
@@ -85,7 +86,7 @@ class TodoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        dd($request, $id);
     }
 
     /**
