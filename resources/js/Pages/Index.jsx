@@ -6,30 +6,6 @@ import { useState } from 'react';
 
 function Index({todos}) {
 
-    // const [todos, setTodos] = useState(initialTodos);
-
-    // const handleSubmit = (e) => {
-    //         e.preventDefault();
-    //         router.post(route('todos.update'), content, {
-    //             onFinish: () => {
-    //                 // リダイレクト先を設定
-    //                 router.get(route('todos'));
-    //             },
-    //         });
-    //     };
-
-    // const handleChange = (id, field, value) => {
-    //     const updatedTodos = todos.map(todo => 
-    //         todo.id === id ? { ...todo, [field]: value } : todo
-    //     );
-    //     console.log(updatedTodos);
-    //     setTodos(updatedTodos);
-    // };
-
-    // const handleEdit = () => {
-    //     router.get(route('todos.edit'));
-    // };
-
     return (
         <>
                 <Container px={5} py={3} maxW={"60rem"}>

@@ -8,24 +8,23 @@ function Create({user}) {
         user_id: user.id,
         content: "",
     });
-    
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        router.post(route('todos.store'), content, {
-            onFinish: () => {
-                // リダイレクト先を設定
-                router.get(route('todos'));
-            },
-        });
-    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setContent({
             ...content,
             [name]: value,
-            
         })
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        router.post(route('todos.store'), content, {
+            onFinish: () => {
+                router.get(route('todos'));
+            },
+        });
     };
     
     return (

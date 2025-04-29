@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Todo;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Log;
+use Inertia\Response;
 
 class TodoController extends Controller
 {
@@ -21,7 +23,7 @@ class TodoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response
     {
         $user_id = Auth::id();
         $todos = Todo::select('id', 'user_id', 'content')
@@ -36,7 +38,7 @@ class TodoController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): Response
     {
         $user = Auth::user(); // ユーザーオブジェクトを取得
         return Inertia::render('Create', compact('user'));
@@ -45,22 +47,20 @@ class TodoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        // dd($request);
 
         $request->validate([
             'user_id' => 'required|exists:users,id', // user_idは存在するユーザーIDであることを確認
             'content' => 'required|string|max:50', // contentは必須、文字列
         ]);
 
-        // 新しいTodoを作成
         Todo::create([
             'user_id' => $request->user_id,
             'content' => $request->content,
         ]);
 
-        return Inertia::location(route('todos'));
+        return redirect()->route('todos');
     }
 
     /**
@@ -74,19 +74,23 @@ class TodoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id): Response
     {
-        $todo = Todo::findOrFail($id);
+        $currentTodo = Todo::findOrFail($id);
 
-        return Inertia::render('Edit', compact('todo'));
+        return Inertia::render('Edit', compact('currentTodo'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): RedirectResponse
     {
-        dd($request, $id);
+        $todo = Todo::findOrFail($id);
+        $todo->content = $request->content;
+        $todo->save();
+
+        return redirect()->route('todos');
     }
 
     /**
