@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { router } from '@inertiajs/react';
+import MainLayout from '../Layouts/MainLayout';
 
 function Create({user}) {
 
@@ -36,8 +37,6 @@ function Create({user}) {
                         type="text" 
                         id="content" 
                         name="content"
-                        // value={content}
-                        // onChange={(e) => setContent({...content, content: e.target.value})}
                         onChange={handleChange}
                     />
                 </div>
@@ -47,4 +46,5 @@ function Create({user}) {
         )
     
 }
+Create.layout = (page) => <MainLayout children={page} />;
 export default Create;
