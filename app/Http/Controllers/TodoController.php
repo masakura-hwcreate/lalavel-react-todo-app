@@ -23,6 +23,7 @@ class TodoController extends Controller
      */
     public function index()
     {
+        $user_id = Auth::id();
         $todos = Todo::select('id', 'user_id', 'content')
             // $todos = Todo::select('id', 'user_id', 'deadline', 'content', 'is_finished')
             ->where('user_id', Auth::id())
@@ -37,7 +38,8 @@ class TodoController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Create');
+        $user = Auth::user(); // ユーザーオブジェクトを取得
+        return Inertia::render('Create', compact('user'));
     }
 
     /**

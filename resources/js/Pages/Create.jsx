@@ -1,28 +1,15 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { router } from '@inertiajs/react';
 
-function Create() {
+function Create({user}) {
 
     const[content, setContent] = useState({
-        user_id: 1,
+        user_id: user.id,
         content: "",
     });
-
     
     const handleSubmit = (e) => {
-        // const userId = 1;
         e.preventDefault();
-
-        // const updateContent =  {
-        //     ...content,
-        //     user_id: userId, // ユーザーIDを追加
-        // }
-        // setContent(updateContent)
-        // console.log(updateContent);
-        // console.log(content);
-        router.post(route('todos.store'), content );
-
         router.post(route('todos.store'), content, {
             onFinish: () => {
                 // リダイレクト先を設定
