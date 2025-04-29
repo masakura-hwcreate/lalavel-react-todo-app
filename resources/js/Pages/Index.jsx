@@ -1,9 +1,9 @@
 import MainLayout from '../Layouts/MainLayout';
 import { Container, Button, Heading, HStack, Box } from "@chakra-ui/react"
-import { router } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 
 function Index({todos}) {
-
+    console.log(todos.data);
     const handleDelete = (id) => (e) => {
 
         //確認ダイアログ
@@ -24,7 +24,7 @@ function Index({todos}) {
         <>
                 <Container px={5} py={3} maxW={"60rem"}>
                 {
-                    todos.map((todo) => (
+                    todos.data.map((todo) => (
                         <div key={todo.id}>
                             <HStack m="2" >
                                 <Box as="article" maxW="" py="2" px="5" borderWidth="1px" rounded="md">
@@ -47,6 +47,18 @@ function Index({todos}) {
                         </div>
                     ))
                 }
+                    <div>
+                        {todos.links.map((link, index) => (
+                            link.url && (
+                                <Link
+                                    key={index}
+                                    href={link.url}
+                                    dangerouslySetInnerHTML={{ __html: link.label }}
+                                    className={link.active ? 'font-bold' : ''}
+                                />
+                            )
+                        ))}
+                    </div>
                 </Container>
         </>
         )

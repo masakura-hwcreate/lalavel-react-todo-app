@@ -29,7 +29,8 @@ class TodoController extends Controller
         $todos = Todo::select('id', 'user_id', 'content')
             // $todos = Todo::select('id', 'user_id', 'deadline', 'content', 'is_finished')
             ->where('user_id', Auth::id())
-            ->get();
+            ->latest()
+            ->paginate(5);
 
         // dd($todos);
         return Inertia::render('Index', compact('todos'));
