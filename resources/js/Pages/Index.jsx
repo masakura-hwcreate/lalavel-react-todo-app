@@ -1,10 +1,18 @@
 import MainLayout from '../Layouts/MainLayout';
 import { Container, Button, Heading, HStack, Box } from "@chakra-ui/react"
-import { Input } from "@chakra-ui/react"
 import { router } from '@inertiajs/react';
-import { useState } from 'react';
 
 function Index({todos}) {
+
+    const handleDelete = (id) => (e) => {
+            e.preventDefault();
+            console.log(id);
+            router.delete(route('todos.destroy', { id }), {
+                onFinish: () => {
+                    router.get(route('todos'));
+                },
+            });
+        };
 
     return (
         <>
@@ -19,6 +27,9 @@ function Index({todos}) {
                                     </Heading>
                                 </Box>
                                 <Button onClick={() => router.get(route('todos.edit', { id: todo.id }))}>更新</Button>
+                                <form onSubmit={handleDelete(todo.id)}>
+                                    <Button type='submit'>削除</Button>
+                                </form>
                             </HStack>
                                 {/* <Input
                                     type='text'

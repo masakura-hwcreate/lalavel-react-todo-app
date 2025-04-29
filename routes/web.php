@@ -31,6 +31,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/todos/{id}/edit', [TodoController::class, 'edit'])->name('todos.edit');
     Route::put('/todos/{id}', [TodoController::class, 'update'])->name('todos.update');
     Route::get('/todos/create', [TodoController::class, 'create'])->name('todos.create');
+    Route::delete('/todos/{id}', [TodoController::class, 'destroy'])->name('todos.destroy');
 });
 
 require __DIR__.'/auth.php';
