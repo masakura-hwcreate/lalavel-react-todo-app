@@ -5,14 +5,20 @@ import { router } from '@inertiajs/react';
 function Index({todos}) {
 
     const handleDelete = (id) => (e) => {
-            e.preventDefault();
-            console.log(id);
-            router.delete(route('todos.destroy', { id }), {
-                onFinish: () => {
-                    router.get(route('todos'));
-                },
-            });
-        };
+
+        //確認ダイアログ
+        const confirmed = window.confirm("本当に削除しますか？");
+        if (!confirmed) {
+            return; 
+        }
+
+        e.preventDefault();
+        router.delete(route('todos.destroy', { id }), {
+            onFinish: () => {
+                router.get(route('todos'));
+            },
+        });
+    };
 
     return (
         <>
